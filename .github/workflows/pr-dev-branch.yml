@@ -1,12 +1,9 @@
 name: Validate PR on dev branch
 
 on:    
-    pull_request:      
-      
-      types: [opened, synchronize]
-                  
-      branches: [ dev ]
-                  
+    pull_request:            
+      types: [opened, synchronize]                 
+      branches: [ dev ]                 
       paths:
         - 'force-app/**'            
 
@@ -78,7 +75,7 @@ jobs:
                   cd ..
 
             - name: Upload SARIF file
-              uses: github/codeql-action/upload-sarif@v1
+              uses: github/codeql-action/upload-sarif@v3
               with:
                 sarif_file: changed-sources/apexScanResults.sarif
 
