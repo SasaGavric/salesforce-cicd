@@ -55,12 +55,12 @@ jobs:
             - name: 'Installing SFDX scanner'
               run: sfdx plugins:install @salesforce/sfdx-scanner
 
-            - name: 'Populate auth file with SFDX_URL secret of integration org'
+            - name: 'Populate auth file with SFDX_URL secret of dev org'
               shell: bash
               run: |
                   echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
 
-            - name: 'Authenticate to Integration Org'
+            - name: 'Authenticate to Dev Org'
               run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
 
             - name: 'Create delta packages for new, modified or deleted metadata'
