@@ -1,12 +1,9 @@
 name: Validate PR on dev branch
 
 on:    
-    pull_request:      
-      
-      types: [opened, synchronize]
-                  
-      branches: [ dev ]
-                  
+    pull_request:            
+      types: [opened, synchronize]                 
+      branches: [ dev ]                 
       paths:
         - 'force-app/**'            
 
