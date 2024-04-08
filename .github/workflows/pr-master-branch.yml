@@ -1,14 +1,14 @@
-name: Validate PR on dev branch
+name: Validate PR on master branch
 
 on:    
     pull_request:            
       types: [opened, synchronize]                 
-      branches: [ dev ]                 
+      branches: [ master ]                 
       paths:
         - 'force-app/**'            
 
 jobs:
-    validate-deployment-on-dev-org:
+    validate-deployment-on-production-org:
         runs-on: ubuntu-latest
         if: ${{ github.actor != 'dependabot[bot]' }}
         steps:
@@ -52,13 +52,13 @@ jobs:
                 sudo apt-get update
                 sudo apt install default-jdk
 
-            - name: 'Populate auth file with SFDX_URL secret of dev org'
+            - name: 'Populate auth file with SFDX_URL secret of production org'
               shell: bash
               run: |
-                  echo ${{ secrets.SFDX_INTEGRATION_URL}} > ./SFDX_INTEGRATION_URL.txt
+                  echo ${{ secrets.SFDX_PRODUCTION_URL}} > ./SFDX_PRODUCTION_URL.txt
 
-            - name: 'Authenticate to Dev Org'
-              run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
+            - name: 'Authenticate to Production Org'
+              run: sfdx auth:sfdxurl:store -f ./SFDX_PRODUCTION_URL.txt -s -a integration
 
             - name: 'Create delta packages for new, modified or deleted metadata'
               run: | 
