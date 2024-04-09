@@ -77,7 +77,8 @@ jobs:
                 if [ -d "changed-sources/force-app" ]; then
                   sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
                 else
-                 
+                  echo "Folder does not exist"
+                  exit 1
                 fi
                   
             - name: 'Deploy destructive changes (if any)'
