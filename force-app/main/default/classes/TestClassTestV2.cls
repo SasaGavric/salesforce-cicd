@@ -1,6 +1,5 @@
 @isTest
-public class TestClassTest {
-    
+public with sharing class TestClassTestV2 {
     @isTest
     static void performTaskTest(){
 
@@ -8,5 +7,4 @@ public class TestClassTest {
 
         TestClass.performTask();
     } 
-
 }
