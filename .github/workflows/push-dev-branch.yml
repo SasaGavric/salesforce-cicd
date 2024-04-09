@@ -43,7 +43,17 @@ jobs:
               run: sfdx auth:sfdxurl:store -f ./SFDX_INTEGRATION_URL.txt -s -a integration
 
             - name: 'Deploy only delta changes to dev org'
-              run: sfdx force:source:deploy -p "changed-sources/force-app" --testlevel RunLocalTests --json
+              run: |
+                if [ -d "changed-sources/force-app" ]; then
+                  sfdx force:source:deploy -p "changed-sources/force-app" --testlevel RunLocalTests --json
+                else
+                  echo "Folder changed-sources/force-app does not exist"
+                fi
 
             - name: 'Deploy destructive changes (if any) to dev org'
-              run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --testlevel RunLocalTests --ignorewarnings 
+              run: |
+                if [ -d "changed-sources/destructiveChanges" ]; then
+                  sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --testlevel RunLocalTests --ignorewarnings
+                else
+                  echo "Destructive changes does not exist"
+                fi
