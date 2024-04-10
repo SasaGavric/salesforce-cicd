@@ -7,7 +7,7 @@ on:
         - 'force-app/**'          
 
 jobs:
-    deploy-branch-to-int-and-staging-orgs:
+    deploy-branch-to-dev-org:
         runs-on: ubuntu-latest
         if: ${{ github.actor != 'dependabot[bot]' }}
         steps:
@@ -44,6 +44,3 @@ jobs:
 
             - name: 'Deploy only delta changes to dev org'
               run: sfdx force:source:deploy -p "changed-sources/force-app" --testlevel RunLocalTests --json
-
-            - name: 'Deploy destructive changes (if any) to dev org'
-              run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings 
