@@ -68,26 +68,10 @@ jobs:
             - name: 'Check-only deploy delta changes - run specified tests'
               if: ${{ env.APEX_TESTS != 'all' }}
               run: |
-                if [ -d "changed-sources/force-app" ]; then
                   echo ${{env.APEX_TESTS}}
                   sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
-                else
-                  echo "Folder changed-sources/force-app does not exist"
-                fi
 
             - name: 'Check-only deploy delta changes - run all tests'
               if: ${{ env.APEX_TESTS == 'all' }}
               run: |
-                if [ -d "changed-sources/force-app" ]; then
                   sfdx force:source:deploy -p "changed-sources/force-app" --checkonly --testlevel RunLocalTests  --json
-                else
-                  echo "Folder changed-sources/force-app does not exist"
-                fi
-                  
-            - name: 'Deploy destructive changes (if any)'
-              run: |
-                if [ -d "changed-sources/destructiveChanges" ]; then
-                  sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings
-                else
-                  echo "Destructive changes does not exist"
-                fi 
