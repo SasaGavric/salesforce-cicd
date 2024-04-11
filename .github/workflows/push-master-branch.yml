@@ -1,4 +1,4 @@
-name: Deploy feature or hotfix to production org
+name: Deploy release or hotfix to production org
 
 on:
     push:
